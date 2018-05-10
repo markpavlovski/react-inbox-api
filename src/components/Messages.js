@@ -1,13 +1,11 @@
-import React, {Component} from 'react'
+import React from 'react'
 import Message from './Message'
 
 
-class Messages extends Component {
-  render(){
-    return (
-      <Message />
-    )
-  }
+const Messages = props => {
+  return (
+    props.seeds.map(data => <Message {...data} key={data.id}/>)
+  )
 }
 
 

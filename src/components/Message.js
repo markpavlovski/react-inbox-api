@@ -1,28 +1,26 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-class Message extends Component{
-  render(){
+const Message = props => {
     return (
-      <div className="row message unread">
+      <div className = {`row message` + (props.read ? 'row message read' : 'row message unread')}>
         <div className="col-xs-1">
           <div className="row">
             <div className="col-xs-2">
               <input type="checkbox" />
             </div>
             <div className="col-xs-2">
-              <i className="star fa fa-star-o"></i>
+              <i className={'star fa fa-star' + (props.starred ? '' : '-o')}></i>
             </div>
           </div>
         </div>
         <div className="col-xs-11">
           <a href="#">
-            Here is some message text that has a bunch of stuff
+            {props.subject}
           </a>
         </div>
       </div>
     )
   }
-}
 
 
 export default Message

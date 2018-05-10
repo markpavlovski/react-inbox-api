@@ -4,7 +4,7 @@ import Message from './Message'
 
 const Messages = props => {
   return (
-    props.seeds.map(data => <Message {...data} key={data.id} selected={false}/>)
+    props.seeds.map(data => <Message {...data} key={data.id}/>)
   )
 }
 

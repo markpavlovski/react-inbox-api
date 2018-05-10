@@ -5,7 +5,9 @@ const Toolbar = props => {
       <div className="row toolbar">
         <div className="col-md-12">
           <p className="pull-right">
-            <span className="badge badge">2</span>
+            <span className="badge badge">{
+              props.seeds.reduce((acc,data)=> data.read ? acc : acc+1,0)
+            }</span>
             unread messages
           </p>
 
@@ -17,7 +19,11 @@ const Toolbar = props => {
             <i className="fa fa-minus-square-o"></i>
           </button>
 
-          <button className="btn btn-default">Mark As Read</button>
+          <button className={[
+            'btn',
+            'btn-default',
+            props.seeds.some(data => data.selected) ? '' : 'disabled'
+          ].join(' ')}>Mark As Read</button>
 
           <button className="btn btn-default">Mark As Unread</button>
 

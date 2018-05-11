@@ -1,23 +1,9 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Toolbar from './Toolbar'
+import NewMessage from './NewMessage'
 import Messages from './Messages'
 
-
-// helper functions
-
-const getNewLabels = (action,selected, currentLabels, activeLabel) => {
-  if (!selected || activeLabel === 'Apply label') return currentLabels
-  if (action === 'add'){
-    const labelExists = currentLabels.find(label => label === activeLabel)
-    const labels = labelExists ? currentLabels : [...currentLabels, activeLabel].sort()
-    return labels
-  }
-  if (action === 'remove'){
-    const labels = currentLabels.filter(label => label !== activeLabel)
-    return labels
-  }
-}
 
 
 class Inbox extends Component {
@@ -118,9 +104,11 @@ class Inbox extends Component {
     const markAsRead = this.markAsRead
     const markAsUnread = this.markAsUnread
     const handleRemoveLabel = this.handleRemoveLabel
+    const hidden = true
     return (
       <div className='container'>
         <Toolbar {...{seeds, handleSelectAll, markAsRead, markAsUnread, handleDelete, handleAddLabel, handleRemoveLabel}}/>
+        <NewMessage {...{hidden}}/>
         <Messages {...{seeds, handleMessageSelect,  handleMessageStar, handleSelectAll}}/>
       </div>
     )

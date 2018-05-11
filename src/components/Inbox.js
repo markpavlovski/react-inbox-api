@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
+import axios from 'axios'
 import Toolbar from './Toolbar'
 import Messages from './Messages'
-import seeds from '../seeds.json'
 
 
 // helper functions
@@ -23,8 +23,24 @@ const getNewLabels = (action,selected, currentLabels, activeLabel) => {
 class Inbox extends Component {
   constructor(){
     super()
-    this.state = {seeds}
+    this.state = {seeds:[]}
   }
+
+  componentDidMount = () => {
+    this.getMessages()
+  }
+
+  getMessages = () => {
+    axios.get('http://localhost:8082/api/messages')
+      .then((response) => {
+        console.log(response.data);
+        this.setState({seeds: response.data})
+      })
+      .catch(console.error)
+  }
+
+
+
 
   handleMessageSelect = (id, selected) => {
     const seeds = this.state.seeds.map(el => el.id === id ? {...el, selected} : el)

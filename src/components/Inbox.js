@@ -39,10 +39,9 @@ class Inbox extends Component {
       .catch(console.error)
   }
 
-  requestPatch = ({messageIds, command}) => {
-    axios.patch(`http://localhost:8082/api/messages/`, {messageIds, command})
+  requestPatch = (body) => {
+    axios.patch(`http://localhost:8082/api/messages/`, body)
       .then((response) => {
-        console.log('oioioi');
         console.log(response.data);
         this.setState({seeds: response.data})
       })
@@ -50,7 +49,9 @@ class Inbox extends Component {
   }
 
 
-
+  getSelectedIds = () => {
+    return this.state.seeds.filter(el => el.selected).map(el=>el.id)
+  }
 
   handleMessageSelect = (id, selected) => {
     const seeds = this.state.seeds.map(el => el.id === id ? {...el, selected} : el)
@@ -58,6 +59,10 @@ class Inbox extends Component {
   }
 
   handleMessageStar = (id) => {
+    const messageIds = [id]
+    const command = 'star'
+    this.requestPatch({messageIds, command})
+
     const seeds = this.state.seeds.map(el => el.id === id ? {...el, starred: !el.starred } : el)
     this.setState({seeds})
   }
@@ -73,26 +78,23 @@ class Inbox extends Component {
   }
 
   handleDelete = () => {
-    const messageIds = this.state.seeds.filter(el => el.selected).map(el=>el.id)
+    const messageIds = this.getSelectedIds()
     const command = 'delete'
-    // axios.patch(`http://localhost:8082/api/messages/`, {messageIds, command: 'delete'})
-    //   .then((response) => {
-    //     console.log('oioioi');
-    //     console.log(response.data);
-    //     this.setState({seeds: response.data})
-    //   })
-    //   .catch(console.error)
     this.requestPatch({messageIds, command})
   }
 
   markAsRead = () => {
-    const seeds = this.state.seeds.map(el => ({...el, read: el.selected ? true : el.read }))
-    this.setState({seeds})
+    const messageIds = this.getSelectedIds()
+    const command = 'read'
+    const read = true
+    this.requestPatch({messageIds, command, read})
   }
 
   markAsUnread = () => {
-    const seeds = this.state.seeds.map(el => ({...el, read: el.selected ? false : el.read }))
-    this.setState({seeds})
+    const messageIds = this.getSelectedIds()
+    const command = 'read'
+    const read = false
+    this.requestPatch({messageIds, command, read})
   }
 
   handleAddLabel = label => {

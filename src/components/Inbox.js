@@ -32,17 +32,26 @@ class Inbox extends Component {
     this.setState({seeds})
   }
 
+  markAsRead = () => {
+    console.log('mark as read');
+  }
+
+  markAsUnread = () => {
+    console.log('mark as read');
+  }
+
 
   render(){
     const seeds = this.state.seeds
     const handleMessageSelect = this.handleMessageSelect
     const handleMessageStar = this.handleMessageStar
     const handleSelectAll = this.handleSelectAll
-    const props = {seeds, handleMessageSelect,  handleMessageStar, handleSelectAll}
+    const markAsRead = this.markAsRead
+    const markAsUnread = this.markAsUnread
     return (
       <div className='container'>
-        <Toolbar {...props}/>
-        <Messages {...props}/>
+        <Toolbar {...{seeds, handleSelectAll, markAsRead, markAsUnread}}/>
+        <Messages {...{seeds, handleMessageSelect,  handleMessageStar, handleSelectAll}}/>
       </div>
     )
   }

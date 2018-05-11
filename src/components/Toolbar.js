@@ -29,9 +29,9 @@ const Toolbar = props => {
             <i className={setSquareBox(seeds)} onClick={handleSelectAll}></i>
           </button>
 
-          <button className='btn btn-default' disabled={isDisabled(seeds)}> Mark As Read</button>
+          <button className='btn btn-default' disabled={isDisabled(seeds)} onClick={markAsRead}> Mark As Read</button>
 
-          <button className='btn btn-default' disabled={isDisabled(seeds)}>Mark As Unread</button>
+          <button className='btn btn-default' disabled={isDisabled(seeds)} onClick={markAsUnread}>Mark As Unread</button>
 
           <select className='form-control, label-select' disabled={isDisabled(seeds)}>
             <option>Apply label</option>

@@ -33,11 +33,13 @@ class Inbox extends Component {
   }
 
   markAsRead = () => {
-    console.log('mark as read');
+    const seeds = this.state.seeds.map(el => ({...el, read: el.selected ? true : el.read }))
+    this.setState({seeds})
   }
 
   markAsUnread = () => {
-    console.log('mark as unread');
+    const seeds = this.state.seeds.map(el => ({...el, read: el.selected ? false : el.read }))
+    this.setState({seeds})
   }
 
 

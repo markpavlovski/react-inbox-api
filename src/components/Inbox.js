@@ -45,6 +45,13 @@ class Inbox extends Component {
   handleMessageSelect = (id, selected) => {
     const seeds = this.state.seeds.map(el => el.id === id ? {...el, selected} : el)
     this.setState({seeds})
+    axios.post(`http://localhost:8082/api/messages`, {seeds})
+      .then((response) => {
+        console.log('oioioi');
+        console.log(response.data);
+        this.setState({seeds: response.data})
+      })
+      .catch(console.error)
   }
 
   handleMessageStar = (id) => {
@@ -63,8 +70,14 @@ class Inbox extends Component {
   }
 
   handleDelete = () => {
-    const seeds = this.state.seeds.filter(el => !el.selected)
-    this.setState({seeds})
+    const messageIds = this.state.seeds.filter(el => el.selected).map(el=>el.id)
+    axios.patch(`http://localhost:8082/api/messages/`, {messageIds, command: 'delete'})
+      .then((response) => {
+        console.log('oioioi');
+        console.log(response.data);
+        this.setState({seeds: response.data})
+      })
+      .catch(console.error)
   }
 
   markAsRead = () => {

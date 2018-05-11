@@ -21,9 +21,7 @@ const Toolbar = props => {
             unread messages
           </p>
 
-          <a className="btn btn-danger">
-            <i className="fa fa-plus"></i>
-          </a>
+
 
           <button className="btn btn-default" onClick={handleSelectAll}>
             <i className={setSquareBox(seeds)} ></i>

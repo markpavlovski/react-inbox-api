@@ -62,9 +62,6 @@ class Inbox extends Component {
     const messageIds = [id]
     const command = 'star'
     this.requestPatch({messageIds, command})
-
-    const seeds = this.state.seeds.map(el => el.id === id ? {...el, starred: !el.starred } : el)
-    this.setState({seeds})
   }
 
   handleSelectAll = () => {
@@ -98,13 +95,15 @@ class Inbox extends Component {
   }
 
   handleAddLabel = label => {
-    const seeds = this.state.seeds.map(el => ({...el, labels: getNewLabels('add',el.selected, el.labels,label)}))
-    this.setState({seeds})
+    const messageIds = this.getSelectedIds()
+    const command = 'addLabel'
+    this.requestPatch({messageIds, command, label})
   }
 
   handleRemoveLabel = label => {
-    const seeds = this.state.seeds.map(el => ({...el, labels: getNewLabels('remove',el.selected, el.labels,label)}))
-    this.setState({seeds})
+    const messageIds = this.getSelectedIds()
+    const command = 'removeLabel'
+    this.requestPatch({messageIds, command, label})
   }
 
 

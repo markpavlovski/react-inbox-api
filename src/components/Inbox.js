@@ -20,15 +20,29 @@ class Inbox extends Component {
     this.setState({seeds})
   }
 
+  handleSelectAll = () => {
+    let {seeds} = this.state
+    if (seeds.every(data => data.selected)) {
+      seeds = seeds.map(el => ({...el, selected: false }))
+      // set seeds  = unselected
+    } else {
+      seeds = seeds.map(el => ({...el, selected: true }))
+      // set seeds = select all
+    }
+    this.setState({seeds})
+  }
+
 
   render(){
     const seeds = this.state.seeds
     const handleMessageSelect = this.handleMessageSelect
     const handleMessageStar = this.handleMessageStar
+    const handleSelectAll = this.handleSelectAll
+    const props = {seeds, handleMessageSelect,  handleMessageStar, handleSelectAll}
     return (
       <div className='container'>
-        <Toolbar seeds = {seeds}/>
-        <Messages seeds = {this.state.seeds} handleMessageSelect={this.handleMessageSelect} handleMessageStar={this.handleMessageStar}/>
+        <Toolbar {...props}/>
+        <Messages {...props}/>
       </div>
     )
   }

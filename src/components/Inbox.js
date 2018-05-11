@@ -37,7 +37,7 @@ class Inbox extends Component {
   }
 
   markAsUnread = () => {
-    console.log('mark as read');
+    console.log('mark as unread');
   }
 
 

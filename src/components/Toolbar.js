@@ -10,7 +10,7 @@ const setSquareBox = seeds => {
 
 
 const Toolbar = props => {
-    const {seeds, handleSelectAll} = props
+    const {seeds, handleSelectAll, markAsRead, markAsUnread} = props
     return (
       <div className="row toolbar">
         <div className="col-md-12">

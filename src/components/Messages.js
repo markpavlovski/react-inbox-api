@@ -3,9 +3,10 @@ import Message from './Message'
 
 
 const Messages = props => {
-  const {handleMessageSelect, handleMessageStar} = props
+  const {seeds, ...methods} = props
+  console.log(methods);
   return (
-    props.seeds.map(data => <Message {...data} key={data.id} handleMessageSelect={handleMessageSelect} handleMessageStar={handleMessageStar}/>)
+    seeds.map(data => <Message {...data} key={data.id} {...methods}/>)
   )
 }
 

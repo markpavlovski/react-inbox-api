@@ -82,9 +82,10 @@ class Inbox extends Component {
     const handleAddLabel = this.handleAddLabel
     const markAsRead = this.markAsRead
     const markAsUnread = this.markAsUnread
+    const handleRemoveLabel = this.handleRemoveLabel
     return (
       <div className='container'>
-        <Toolbar {...{seeds, handleSelectAll, markAsRead, markAsUnread, handleDelete, handleAddLabel}}/>
+        <Toolbar {...{seeds, handleSelectAll, markAsRead, markAsUnread, handleDelete, handleAddLabel, handleRemoveLabel}}/>
         <Messages {...{seeds, handleMessageSelect,  handleMessageStar, handleSelectAll}}/>
       </div>
     )

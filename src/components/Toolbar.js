@@ -10,7 +10,7 @@ const setSquareBox = seeds => {
 
 
 const Toolbar = props => {
-    const {seeds, handleSelectAll, markAsRead, markAsUnread, handleDelete, handleAddLabel} = props
+    const {seeds, handleSelectAll, markAsRead, markAsUnread, handleDelete, handleAddLabel, handleRemoveLabel} = props
     return (
       <div className="row toolbar">
         <div className="col-md-12">
@@ -40,7 +40,7 @@ const Toolbar = props => {
             <option value="gschool">gschool</option>
           </select>
 
-          <select className='form-control, label-select' disabled={isDisabled(seeds)}>
+          <select className='form-control, label-select' disabled={isDisabled(seeds)} onChange={event => handleRemoveLabel(event.target.value)}>
             <option>Remove label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>

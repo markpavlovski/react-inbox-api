@@ -38,7 +38,7 @@ const Message = props => {
       </div>
       <div className="col-xs-11">
         {
-          labels.map(label => (<span className="label label-warning">{label}</span>))
+          labels.map((label,idx) => (<span className="label label-warning" key={`label-${idx}`}>{label}</span>))
         }
         <a href="#">
           {subject}

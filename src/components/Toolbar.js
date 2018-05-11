@@ -1,8 +1,13 @@
 import React from 'react'
 
-const isDisabled = (seeds) => {
-  return seeds.some(data => data.selected) ? '' : 'disabled'
+const isDisabled = seeds => seeds.some(data => data.selected) ? '' : 'disabled'
+
+const setSquareBox = seeds => {
+  if (seeds.every(data => data.selected)) return <i className="fa fa-check-square-o"></i>
+  if (seeds.some(data => data.selected)) return <i className="fa fa-minus-square-o"></i>
+  return <i className="fa fa-square-o"></i>
 }
+
 
 const Toolbar = props => {
     return (
@@ -20,7 +25,7 @@ const Toolbar = props => {
           </a>
 
           <button className="btn btn-default">
-            <i className="fa fa-minus-square-o"></i>
+            {setSquareBox(props.seeds)}
           </button>
 
           <button className='btn btn-default' disabled={isDisabled(props.seeds)}> Mark As Read</button>

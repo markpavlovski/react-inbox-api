@@ -6,11 +6,17 @@ import seeds from '../seeds.json'
 
 // helper functions
 
-const getNewLabels = (selected, currentLabels, newLabel) => {
-  if (!selected || newLabel === 'Apply label') return currentLabels
-  const labelExists = currentLabels.find(label => label === newLabel)
-  const labels = labelExists ? currentLabels : [...currentLabels, newLabel].sort()
-  return labels
+const getNewLabels = (action,selected, currentLabels, activeLabel) => {
+  if (!selected || activeLabel === 'Apply label') return currentLabels
+  if (action === 'add'){
+    const labelExists = currentLabels.find(label => label === activeLabel)
+    const labels = labelExists ? currentLabels : [...currentLabels, activeLabel].sort()
+    return labels
+  }
+  if (action === 'remove'){
+    const labels = currentLabels.filter(label => label !== activeLabel)
+    return labels
+  }
 }
 
 
@@ -55,13 +61,14 @@ class Inbox extends Component {
     this.setState({seeds})
   }
 
-  handleAddLabel = newLabel => {
-    const seeds = this.state.seeds.map(el => ({...el, labels: getNewLabels(el.selected, el.labels,newLabel)}))
+  handleAddLabel = label => {
+    const seeds = this.state.seeds.map(el => ({...el, labels: getNewLabels('add',el.selected, el.labels,label)}))
     this.setState({seeds})
+  }
 
-    console.log(newLabel);
-    console.log('!!!!',seeds);
-
+  handleRemoveLabel = label => {
+    const seeds = this.state.seeds.map(el => ({...el, labels: getNewLabels('remove',el.selected, el.labels,label)}))
+    this.setState({seeds})
   }
 
 

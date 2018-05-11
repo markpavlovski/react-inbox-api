@@ -10,7 +10,7 @@ const setSquareBox = seeds => {
 
 
 const Toolbar = props => {
-    const {seeds, handleSelectAll, markAsRead, markAsUnread} = props
+    const {seeds, handleSelectAll, markAsRead, markAsUnread, handleDelete, handleAddLabel} = props
     return (
       <div className="row toolbar">
         <div className="col-md-12">
@@ -25,15 +25,15 @@ const Toolbar = props => {
             <i className="fa fa-plus"></i>
           </a>
 
-          <button className="btn btn-default">
-            <i className={setSquareBox(seeds)} onClick={handleSelectAll}></i>
+          <button className="btn btn-default" onClick={handleSelectAll}>
+            <i className={setSquareBox(seeds)} ></i>
           </button>
 
           <button className='btn btn-default' disabled={isDisabled(seeds)} onClick={markAsRead}> Mark As Read</button>
 
           <button className='btn btn-default' disabled={isDisabled(seeds)} onClick={markAsUnread}>Mark As Unread</button>
 
-          <select className='form-control, label-select' disabled={isDisabled(seeds)}>
+          <select className='form-control, label-select' disabled={isDisabled(seeds)} onChange={event => handleAddLabel(event.target.value)}>
             <option>Apply label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>
@@ -47,7 +47,7 @@ const Toolbar = props => {
             <option value="gschool">gschool</option>
           </select>
 
-          <button className='btn btn-default' disabled={isDisabled(seeds)}><i className="fa fa-trash-o" /></button>
+          <button className='btn btn-default' disabled={isDisabled(seeds)} onClick={handleDelete}><i className="fa fa-trash-o" /></button>
         </div>
       </div>
     )

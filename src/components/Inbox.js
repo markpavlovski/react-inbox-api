@@ -9,7 +9,7 @@ import Messages from './Messages'
 class Inbox extends Component {
   constructor(){
     super()
-    this.state = {seeds:[]}
+    this.state = {seeds:[], composeIsActive: false}
   }
 
   componentDidMount = () => {
@@ -28,9 +28,14 @@ class Inbox extends Component {
   requestPatch = (body) => {
     axios.patch(`http://localhost:8082/api/messages/`, body)
       .then((response) => {
-        console.log(response.data);
-        this.setState({seeds: response.data})
+        this.getMessages()
       })
+      .catch(console.error)
+  }
+
+  sendMessage = (subject, body) => {
+    axios.post(`http://localhost:8082/api/messages/`, {subject, body})
+      .then(this.getMessages)
       .catch(console.error)
   }
 
@@ -92,6 +97,13 @@ class Inbox extends Component {
     this.requestPatch({messageIds, command, label})
   }
 
+  toggleComposeMessage = () => {
+    const composeIsActive = !this.state.composeIsActive
+    this.setState({composeIsActive})
+  }
+
+
+
 
 
   render(){
@@ -104,11 +116,16 @@ class Inbox extends Component {
     const markAsRead = this.markAsRead
     const markAsUnread = this.markAsUnread
     const handleRemoveLabel = this.handleRemoveLabel
-    const hidden = true
+
+    const composeIsActive = this.state.composeIsActive
+    const toggleComposeMessage = this.toggleComposeMessage
+
+    const sendMessage = this.sendMessage
+
     return (
       <div className='container'>
-        <Toolbar {...{seeds, handleSelectAll, markAsRead, markAsUnread, handleDelete, handleAddLabel, handleRemoveLabel}}/>
-        <NewMessage {...{hidden}}/>
+        <Toolbar {...{seeds, handleSelectAll, markAsRead, markAsUnread, handleDelete, handleAddLabel, handleRemoveLabel, toggleComposeMessage}}/>
+        {composeIsActive ? <NewMessage {...{toggleComposeMessage, sendMessage}}/> : ''}
         <Messages {...{seeds, handleMessageSelect,  handleMessageStar, handleSelectAll}}/>
       </div>
     )

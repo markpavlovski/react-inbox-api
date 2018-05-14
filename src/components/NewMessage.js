@@ -1,9 +1,15 @@
 import React from 'react'
 
 const NewMessage = props => {
-    const {hidden} = props
+    const {toggleComposeMessage, sendMessage} = props
     return (
-      <form className={`form-horizontal well ${hidden}`}>
+      <form className={`form-horizontal well`} onSubmit={ event => {
+        event.preventDefault()
+        sendMessage(event.target.subject.value, event.target.body.value)
+        toggleComposeMessage()
+      }
+
+      }>
         <div className="form-group">
           <div className="col-sm-8 col-sm-offset-2">
             <h4>Compose Message</h4>

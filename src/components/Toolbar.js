@@ -10,7 +10,7 @@ const setSquareBox = seeds => {
 
 
 const Toolbar = props => {
-    const {seeds, handleSelectAll, markAsRead, markAsUnread, handleDelete, handleAddLabel, handleRemoveLabel} = props
+    const {seeds, handleSelectAll, markAsRead, markAsUnread, handleDelete, handleAddLabel, handleRemoveLabel, toggleComposeMessage} = props
     return (
       <div className="row toolbar">
         <div className="col-md-12">
@@ -21,7 +21,7 @@ const Toolbar = props => {
             unread messages
           </p>
 
-          <a className="btn btn-danger">
+          <a className="btn btn-danger" onClick={toggleComposeMessage}>
             <i className="fa fa-plus"></i>
           </a>
 
